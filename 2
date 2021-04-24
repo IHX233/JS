@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width:100px;
+            height:100px;
+            background-color:skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">头</div>
+    <div class="box">脖子</div>
+    <div class="box">身体</div>
+    <div class="box">腿</div>
+<script>
+    let gf = document.getElementsByClassName("box");
+    gf[1].onclick = function(){
+        gf[3].style.cssText="width:200px; height:200px; background-color:red;"
+    }
+</script>
+</body>
+</html>
