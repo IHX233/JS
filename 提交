@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #content{
+            margin:100px auto;
+            width:400px;
+            height:300px;
+            border:1px solid #000;
+        }
+        #btn{
+            margin-left:580px;
+        }
+        #list{
+            margin:auto;
+            width:400px;
+            list-style:none;
+        }
+    </style>
+</head>
+<body>
+    
+       <div id="content" contenteditable="true"></div>
+       <button type="button" id="btn">提交</button>
+       <ul id="list"></ul>
+<script> 
+        let color = "red";
+        btn.onclick = function(){
+        let str = content.innerHTML;
+        list.innerHTML +=`<li style="color:${color}">${str}</li>`;
+    }
+</script>
+</body>
+</html>
