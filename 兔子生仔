@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>开始一对兔，一月成小兔，二月成大兔并生一对兔，八月大中小几何</p>
+    <script>
+        let l=1,m=0,b=0;
+        for(i=0;i<8;i+=1){
+            b+=m;
+            m=l;
+            l=b;
+        }
+        console.log("小："+l+"中："+m+"大："+b);
+    </script>
+</body>
+</html>
