@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            position:relative;
+            width:450px;
+            height:300px;
+            margin:100px auto;
+            
+        }
+        #title{
+            width:450px;
+            height:30px;
+            opacity: .5;
+            background-color: #eee;
+            text-align:center;
+        }
+        #p1{
+            position:absolute;
+            left:0;
+            top:50%;
+            width:35px;
+            height:20px;
+            opacity: .5;
+            background-color: #eee;
+            text-align:center;
+        }
+        #p2{
+            position:absolute;
+            right:0;
+            top:50%;
+            width:35px;
+            height:20px;
+            opacity: .5;
+            background-color: #eee;
+            text-align:center;
+        }
+        img{
+            position:absolute;
+            top:0;
+            right:0;
+            width:450px;
+            height:300px;
+        }
+        .t{
+            display:none;
+        }
+        .f{
+            display:block;
+        }
+        #b{
+            width:200px;
+            height:20px;
+            margin:auto;
+        }
+        #b1{
+            width:70px;
+            height:20px;
+            background-color: yellow;
+            float:left;
+        }
+        #b2{
+            width:70px;
+            height:20px;
+            background-color: yellow;
+            float:right;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="box">
+        <img src="../img/l1.jpg" class="t f"></img>
+        <img src="../img/l2.jpg" class="t"></img>
+        <img src="../img/l3.jpg" class="t"></img>
+        <img src="../img/l4.jpg" class="t"></img>
+        <img src="../img/l5.jpg" class="t"></img>
+        <div id="title">1/5</div>
+        <button id="p1">《-</button>
+        <button id="p2">-》</button>
+    </div>
+    <div id="b">
+    <button id="b1">可循环</button>
+    <button id="b2">不循环</button>
+    </div>
+    <script>
+        let t = document.getElementsByClassName("t");
+        let p1 = document.getElementById("p1");
+        let p2 = document.getElementById("p2");
+        let b1 = document.getElementById("b1");
+        let b2 = document.getElementById("b2");
+        let title = document.getElementById("title");
+        let i = 0;
+        p1.onclick = function(){
+                if(i>0){
+                   i--;
+                   t[i+1].style.display="none";
+                   title.innerHTML=`${i+1}/5`;
+                }else{}
+            }
+        p2.onclick = function(){
+                if(i<4){
+                    i++;
+                    t[i].style.display="block";
+                   title.innerHTML=`${i+1}/5`;
+                }else{}
+            }
+        b1.onclick = function(){
+            p1.onclick = function(){
+                if(i>0){
+                   i--;
+                   t[i+1].style.display="none";
+                   title.innerHTML=`${i+1}/5`;
+                }else if(i==0){
+                    i=4;
+                    t[4].style.display="block";
+                    t[3].style.display="block";
+                    t[2].style.display="block";
+                    t[1].style.display="block";
+                    title.innerHTML=`${i+1}/5`;
+                }
+            }
+            p2.onclick = function(){
+                if(i<4){
+                    i++;
+                    t[i].style.display="block";
+                   title.innerHTML=`${i+1}/5`;
+                }else if(i==4){
+                    i=0;
+                    t[4].style.display="none";
+                    t[3].style.display="none";
+                    t[2].style.display="none";
+                    t[1].style.display="none";
+                    title.innerHTML=`${i+1}/5`;
+                }
+            }
+            
+        }
+        b2.onclick = function(){
+                p1.onclick = function(){
+                if(i>0){
+                   i--;
+                   t[i+1].style.display="none";
+                   title.innerHTML=`${i+1}/5`;
+                }else{}
+            }
+                p2.onclick = function(){
+                if(i<4){
+                    i++;
+                    t[i].style.display="block";
+                   title.innerHTML=`${i+1}/5`;
+                }else{}
+            }
+            
+        }
+        
+    </script>
+</body>
+</html>
