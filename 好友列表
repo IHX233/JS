@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:200px;
+            margin:100px auto;
+            border:2px solid #000;
+        }
+        .btn{
+            width:200px;
+            height:30px;
+            background-color: purple;
+            font-weight: bold;
+            color:white;
+            border-top:2px solid #000;
+        }
+        .list{
+            display:none;
+        }
+        ul{
+            list-style: none;
+        }
+        li{
+            width:200px;
+            height:25px;
+            color:black;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="btn">同学</div>
+        <div class="list">
+            <ul>
+                <li>彭伟</li>
+                <li>杨庆</li>
+                <li>熊燕清</li>
+            </ul>
+        </div>
+        <div class="btn">好友</div>
+        <div class="list">
+            <ul>
+                <li>猴憋</li>
+                <li>骚包</li>
+                <li>萝卜</li>
+            </ul>
+        </div>
+        <div class="btn">家人</div>
+        <div class="list">
+            <ul>
+                <li>爸</li>
+                <li>妈</li>
+                <li>弟</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        let btn = document.getElementsByClassName("btn");
+        let list = document.getElementsByClassName("list");
+        let s = document.getElementsByTagName("li");
+        btn[0].onclick = function(){
+            list[0].style.display = "block";
+            list[1].style.display = "none";
+            list[2].style.display = "none";
+        }
+        btn[1].onclick = function(){
+            list[1].style.display = "block";
+            list[0].style.display = "none";
+            list[2].style.display = "none";
+        }
+        btn[2].onclick = function(){
+            list[2].style.display = "block";
+            list[1].style.display = "none";
+            list[0].style.display = "none";
+        }
+        for(let i=0;i<s.length;i++){
+            s[i].onmouseover = function(){
+                s[i].style.backgroundColor="pink";
+            }
+            s[i].onmouseout = function(){
+                s[i].style.backgroundColor="white";
+            }
+        }
+    </script>
+</body>
+</html>
