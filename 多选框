@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .box{
+            margin:100px auto;
+            padding-top:10px;
+            width:200px;
+            border:1px solid #eee;
+        }
+        ul{
+            list-style:none;
+            width:200px;
+        }
+        li{
+            height:30px;
+            width:200px;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+            line-height:30px;
+
+        }
+        .a{
+            height:50px;
+            line-height:50px;
+        }
+        li span{
+            display:inline-block;
+            margin-left:10px;
+            width:10px;
+            height:10px;
+            border:1px solid #eee;
+        }
+        li span.active{
+            background-color: red;
+        }
+    </style>
+</head>
+    <div class="box">
+        <ul>
+            <li>
+                <span class="cb"></span>option1
+            </li>
+            <li>
+                <span class="cb"></span>option2
+            </li>
+            <li>
+                <span class="cb"></span>option3
+            </li>
+            <li>
+                <span class="cb"></span>option4
+            </li>
+            <li>
+                <span class="cb"></span>option5
+            </li>
+            <li>
+                <span class="cb"></span>option6
+            </li>
+            <li class="a">
+                <span class="all"></span>全选
+            </li>
+        </ul>
+    </div>
+    <script>
+        let cb = document.getElementsByClassName("cb");
+        let all = document.getElementsByClassName("all");
+        let count = 0;
+        all[0].mark = false;
+        for(let j=0;j<cb.length;j++){
+            cb[j].mark = false;
+            cb[j].onclick = function(){
+                if(cb[j].mark){
+                    count--;
+                }else{
+                    count++;
+                }
+                cb[j].mark = !cb[j].mark;
+                cb[j].classList.toggle("active");
+                if(count===6){
+                    all[0].classList.add("active");
+                    all[0].mark = true;
+                }else if(count===0){
+                    all[0].classList.remove("active");
+                    all[0].mark = false;
+                }
+            }
+        }      
+        all[0].onclick = function(){
+              if(all[0].mark){
+                  all[0].classList.toggle("active");
+                  all[0].mark = false;
+                  for(let i=0;i<cb.length;i++){
+                        cb[i].classList.remove("active");
+                        cb[i].mark = false; 
+                    }
+              }else{
+                 all[0].classList.toggle("active");
+                 all[0].mark = true;
+                 for(let i=0;i<cb.length;i++){
+                     if(cb[i].mark===false){
+                            cb[i].classList.add("active");
+                     }
+                
+                     cb[i].mark = true; 
+                 }
+              }
+               
+        
+        }
+        
+        
+    </script>
+</body>
+</html>
