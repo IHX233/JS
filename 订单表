@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width:500px;
+            height:400px;
+            margin:20px auto;
+        }
+        table{
+            width:500px;
+            height:200px;
+            border:1px solid red;
+            border-collapse: collapse;
+        }
+        #bottom{
+            position: absolute;
+            margin-top: 3px;
+            width:500px;
+            height:30px;
+            background-color: red;
+        }
+        #bottom div{
+            position: relative;
+            float:right;
+            top:-10px;
+            margin-left:50px;
+        }
+        thead tr{
+            height:20px;
+            background-color:red;
+            text-align:center;
+            line-height: 20px;
+            color:white;
+        }
+        td{
+            text-align:center;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+    <table>
+        <thead>
+            <tr>
+                <td>商品</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>小计</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>西瓜</td>
+                <td class="p">8</td>
+                <td>
+                    <input type="button" value="-" class="s"></input>
+                    <input type="text" value="1" class="n"></input>
+                    <input type="button" value="+" class="a"></input>
+                </td>
+                <td class="pri"></td>
+            </tr>
+            <tr>
+                <td>香蕉</td>
+                <td class="p">10</td>
+                <td>
+                    <input type="button" value="-" class="s"></input>
+                    <input type="text" value="1" class="n"></input>
+                    <input type="button" value="+" class="a"></input>
+                </td>
+                <td class="pri"></td>
+            </tr>
+            <tr>
+                <td>橘子</td>
+                <td class="p">12.5</td>
+                <td>
+                    <input type="button" value="-" class="s"></input>
+                    <input type="text" value="1" class="n"></input>
+                    <input type="button" value="+" class="a"></input>
+                </td>
+                <td class="pri"></td>
+            </tr>
+            <tr>
+                <td>芒果</td>
+                <td class="p">23</td>
+                <td>
+                    <input type="button" value="-" class="s"></input>
+                    <input type="text" value="1" class="n"></input>
+                    <input type="button" value="+" class="a"></input>
+                </td>
+                <td class="pri"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="bottom">
+        <div>
+            <p>合计费用：<span id="price"></span>元</p>
+        </div>
+        <div>
+            <p>已选中商品：<span id="num"></span>个</p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    let p = document.getElementsByClassName("p");
+    let s = document.getElementsByClassName("s");
+    let n = document.getElementsByClassName("n");
+    let a = document.getElementsByClassName("a");
+    let pri = document.getElementsByClassName("pri");
+    let price = document.getElementById("price");
+    let num = document.getElementById("num");
+    num.innerHTML=0;
+    price.innerHTML=0;
+    for(let i=0;i<4;i++){
+        pri[i].innerHTML=n[i].value*p[i].innerHTML;
+        num.innerHTML=parseInt(num.innerHTML)+parseInt(n[i].value);
+        price.innerHTML=parseFloat(price.innerHTML)+parseFloat(pri[i].innerHTML);
+        if(n[i].value>0){
+            s[i].onclick = function(){
+                n[i].value--;
+                pri[i].innerHTML=n[i].value*p[i].innerHTML;
+                num.innerHTML=parseInt(n[1].value)+parseInt(n[2].value)+parseInt(n[3].value)+parseInt(n[0].value);
+                price.innerHTML=parseFloat(pri[0].innerHTML)+parseFloat(pri[1].innerHTML)+parseFloat(pri[2].innerHTML)+parseFloat(pri[3].innerHTML);
+            }
+        }
+        a[i].onclick = function(){
+            n[i].value++;
+            pri[i].innerHTML=n[i].value*p[i].innerHTML;
+            num.innerHTML=parseInt(n[1].value)+parseInt(n[2].value)+parseInt(n[3].value)+parseInt(n[0].value);
+            price.innerHTML=parseFloat(pri[0].innerHTML)+parseFloat(pri[1].innerHTML)+parseFloat(pri[2].innerHTML)+parseFloat(pri[3].innerHTML);
+        }
+    }
+</script>
+</html>
