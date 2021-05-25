@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding:0;
+            margin: 0;
+        }
+        #box{
+            width: 600px;
+            height: 300px;
+            margin:30px auto;
+            border:1px solid #eee;
+        }
+        span{
+            color:red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="text" class="input"></input>
+        <input type="button" value="搜索" id="research"></input>
+        <input type="text" class="input"></input>
+        <input type="button" value="替换" id="change"></input>
+        <p id="content">  作用域：变量生效的环境
+            es5：两类
+               全局作用域  整个js
+               函数作用域 函数中
+            es6：在es5的基础上新增了一个块作用域
+            无论什么作用域下，只要没有声明就使用赋值的变量，会变成全局作用域的存在
+            没有声明就赋值的变量会泄露，成为顶级/全局window对象的属性
+            只有一个window，但可以有多个js/全局对象
+            var声明的全局变量会成为window对象属性
+            全局作用域不会向函数作用域找对象，函数作用域也不会向另一个函数作用域找对象
+            {}包起来的是块状域    let const
+            块作用域也不会向另一个块作用域找对象，所以for循环每进行一次，用let定义的变量i在每一次循环都是不同值，而用var定义i的话，
+       i会是顶级变量，随着循环进行，i的值会定格在最后一个循环的i，而每次循环向块内找不到对象，就会向全局找到循环最后的i
+            this 本次操作的对象
+            delete：删除变量  只能删除泄露的变量，不能删除声明的变量1</p>
+
+    </div>
+    <script>
+        let b = document.getElementById("box");
+        let r = document.getElementById("research");
+        let c = document.getElementById("change");
+        let input = document.getElementsByClassName("input");
+        let p = document.getElementById("content");
+        let st1,st2,str,con,content,string;
+        r.onclick = function(){
+            str = p.innerHTML;
+            st1 = input[0].value.trim();
+            content = str.split("<span>").join("");
+            con = content.split("</span>").join("");
+            str = con;
+            if(st1){
+                 con = str.split(st1).join(`<span>${st1}</span>`);
+            }
+            p.innerHTML = con;   
+        } 
+        c.onclick = function(){
+            str = p.innerHTML;
+            st2 = input[1].value.trim();
+            if(st2){
+                con = str.split(st1).join(st2);
+            }
+            p.innerHTML = con;
+
+        }
+    </script>
+</body>
+</html>
