@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .header{
+            margin:100px auto;
+            height:25px;
+            width:500px;
+            background-color: #eee;
+        }
+        ul{
+            list-style: none;
+        }
+        .header li{
+            float:left;
+            margin-left:50px;
+        }
+        .box{
+            margin:auto;
+            height:250px;
+            width:500px;
+            border:1px solid #000;
+            margin-top:-70px;
+        }
+        .box li{
+            margin-left:33px;
+            margin-top:14px;
+            height:100px;
+            width:200px;
+            float:left;
+        }
+        #id{
+            position: absolute;
+        }
+        #hider{
+            margin-top:-20px;
+            position: relative;
+            height:25px;
+            width:100px;
+            top:24px;
+            left:-40px;
+        }
+        #hide{
+            cursor: pointer;
+        }
+        .hider{
+            display:none
+        }
+        #hider>div{
+            cursor: pointer;
+            margin-left:10px;
+            float:left;
+            height: 25px;
+            width: 40px;
+            background-color: #eee;
+        }
+        img{
+            width:200px;
+            height:50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <ul>
+            <li>流行</li>
+            <li>热销</li>
+            <li>上新</li>
+            <li id="hide">价格
+                <div id="hider" class="hider">
+                    <div id="s">升序</div>
+                    <div id="j">降序</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="box">
+        <ul id="list">
+
+        </ul>
+    </div>
+</body>
+<script>
+    let list = document.getElementById("list");
+    let hide = document.getElementById("hide");
+    let hider = document.getElementById("hider");
+    let s = document.getElementById("s");
+    let j = document.getElementById("j");
+    hide.onmouseover = function(){
+        hider.classList.remove("hider");
+    }
+    hide.onmouseleave = function(){
+        hider.classList.add("hider");
+    }
+    let arr = [
+        {
+            url:'../img/l1.jpg',
+            title:'荷花',
+            price:'300'
+        },
+        {
+            url:'../img/l2.jpg',
+            title:'玫瑰花',
+            price:'200'
+        },
+        {
+            url:'../img/l3.jpg',
+            title:'牡丹花',
+            price:'400'
+        },
+        {
+            url:'../img/l4.jpg',
+            title:'菜花',
+            price:'100'
+        }
+
+    ]
+    function view(){
+        arr.forEach(v => {
+            list.innerHTML += `<li>
+                <img src="${v.url}"></img>
+                <p>${v.title}</p>
+                <div>
+                    $<span>${v.price}</span>
+                </div>
+            </li>`
+        });
+    }
+    view(arr);
+    s.onclick = function(){
+      list.innerHTML="";
+      arr.sort((a,b) => a.price-b.price); 
+      view(arr);
+    }
+    j.onclick = function(){
+        list.innerHTML="";
+        arr.sort((a,b) => b.price-a.price); 
+        view(arr);
+    }
+    
+</script>
+</html>
