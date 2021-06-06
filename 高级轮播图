@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .box{
+            width:450px;
+            height:300px;
+            margin:100px auto;
+            border:1px solid #000
+        }
+        #lo{
+            float: left;
+            height:20px;
+            width:40px;
+            margin-left:-40px;
+            margin-top:0;
+            text-align: center;
+            background-color:yellow;
+            cursor: pointer;
+        }
+        #se{
+            float: left;
+            position: relative;
+            height:20px;
+            width:40px;
+            margin-left:-40px;
+            margin-top:25px;
+            text-align: center;
+            background-color: #eee;
+            cursor: pointer;
+        }
+        #lovely{
+            position:relative;
+            width:450px;
+            height:300px; 
+        }
+        #sexy{
+            position:relative;
+            width:450px;
+            height:300px;
+            display:none;
+        }
+        img{
+            position:absolute;
+            top:0;
+            right:0;
+            width:450px;
+            height:300px;
+            display:none;
+        }
+        .f{
+            display:block;
+            z-index: -1;
+        }
+        .btn{
+            position: absolute;
+            right:0;
+            bottom:0;
+            height:20px;
+            width:150px;
+        }
+        .b1{ 
+            margin-right:10px;
+            height:20px;
+            width:40px;
+            text-align:center;
+            background-color:#eee;
+            float:left;
+            cursor: pointer;
+        }
+        .b2{ 
+            margin-right:10px;
+            height:20px;
+            width:40px;
+            text-align:center;
+            background-color: #eee;
+            float:left;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div id="lo" class="color">可爱</div>
+        <div id="se">性感</div>
+        <div id="lovely">
+            <img src="../img/l2.jpg" class="t1 f"></img>
+            <img src="../img/l5.jpg" class="t1"></img>
+            <div class="btn">
+                <div class="b1">1</div>
+                <div class="b1">2</div>
+            </div>
+        </div>
+        <div id="sexy">
+            <img src="../img/l1.jpg" class="t2 f"></img>
+            <img src="../img/l3.jpg" class="t2"></img>
+            <img src="../img/l4.jpg" class="t2"></img>
+            <div class="btn">
+                <div class="b2">1</div>
+                <div class="b2">2</div>
+                <div class="b2">3</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let lo = document.getElementById("lo");
+        let se = document.getElementById("se");
+        let lovely = document.getElementById("lovely");
+        let sexy = document.getElementById("sexy");
+        let t1 = document.getElementsByClassName("t1");
+        let t2 = document.getElementsByClassName("t2");
+        let b1 = document.getElementsByClassName("b1");
+        let b2 = document.getElementsByClassName("b2");
+        lo.onclick = function(){
+            lo.style.backgroundColor="yellow";
+            lovely.style.display="block";
+            se.style.backgroundColor="#eee";
+            sexy.style.display="none";
+        }
+        se.onclick = function(){
+            se.style.backgroundColor="yellow";
+            sexy.style.display="block";
+            lo.style.backgroundColor="#eee";
+            lovely.style.display="none";
+        }
+        b1[0].style.backgroundColor="yellow";
+        b2[0].style.backgroundColor="yellow";
+        for(let i=0;i<b1.length;i++){
+            b1[i].onclick = function(){
+                for(let i=0;i<b1.length;i++){
+                    t1[i].classList.remove("f");
+                    b1[i].style.backgroundColor="#eee";
+                }
+                t1[i].classList.add("f");
+                b1[i].style.backgroundColor="yellow";
+            }
+            
+        }
+        for(let i=0;i<b2.length;i++){
+            b2[i].onclick = function(){
+                for(let i=0;i<b2.length;i++){
+                    t2[i].classList.remove("f");
+                    b2[i].style.backgroundColor="#eee";
+                }
+                t2[i].classList.add("f");
+                b2[i].style.backgroundColor="yellow";
+            }
+            
+        }
+    </script>
+</body>
+</html>
