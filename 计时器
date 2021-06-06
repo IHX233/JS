@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            margin:100px auto;
+            width:200px;
+            
+
+        }
+        #box div{
+            width:40px;
+            height:20px;
+            float:left;
+        }
+        
+    </style>
+</head>
+<body>
+    <button id="ks">开始</button>
+    <button id="tz">停止</button>
+    <div id="box"></div>
+    
+</body>
+<script>
+    let {floor,random} = Math;
+    let r,g,b,a,k;
+    let box = document.getElementById("box");
+    let ks = document.getElementById("ks");
+    let tz = document.getElementById("tz");
+    let fn = function(){
+        r=floor(random()*256);
+        g=floor(random()*256);
+        b=floor(random()*256);
+        a=floor(random()*11)/10;
+        box.innerHTML+=`<div style="background-color:rgba(${r},${g},${b},${a})"></div>`;
+    }
+    ks.onclick = function(){
+        k = setInterval(fn,300);
+        
+    }
+    tz.onclick = function(){
+        clearTimeout(k);
+    }
+
+</script>
+</html>
