@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let obj1 = {
+        a:1,
+        b:2,
+        c:[3,4]
+    }
+    function extend(o1,deep){
+        //true为深拷贝false为浅拷贝
+        var obj = {};
+        if(o1 instanceof Array){
+            obj=[];
+        }
+        for (var key in o1) {
+            let value = o1[key];
+            obj[key] = (deep && typeof value==="object" && value!==null) ? extend(value,deep) : value;
+            
+        }
+        return obj;
+    }
+    let obj2 = extend(obj1,true);
+    obj2.c.push(5);
+    console.log(obj1);
+    console.log(obj2);
+</script>
+</html>
