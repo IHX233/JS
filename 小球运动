@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin:0;
+          padding: 0;}
+        #box{
+            position: relative;
+            width:100px;
+            height:100px;
+            border-radius: 50%;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+<script>
+    let x = 3;
+    let y = 3;
+    let MAX_X = window.innerWidth - box.offsetWidth;
+    let MAX_Y = window.innerHeight - box.offsetHeight;
+    console.log(MAX_Y)
+    window.onresize = () => {
+        MAX_X = window.innerWidth - box.offsetWidth;
+        MAX_Y = window.innerHeight - box.offsetHeight;
+    }
+    let FTop = box.offsetTop;
+    let FLeft = box.offsetLeft;
+    let run = function(){
+        FTop += y;
+        FLeft += x;
+        if(FTop<=0 || FTop>=MAX_Y){
+            y = -y;
+            FTop = Math.max(0,FTop);
+            FTop = Math.min(FTop,MAX_Y);
+        }
+        if(FLeft<=0 || FLeft>=MAX_X){
+            x = -x;
+            FLeft = Math.max(0,FLeft);
+            FLeft = Math.min(FLeft,MAX_X);
+        }
+        box.style.left = FLeft + "px";
+        box.style.top = FTop + "px";
+        requestAnimationFrame(run)
+
+    };
+    run();
+</script>
+</html>
