@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+        }
+        body > div{
+            float: left;
+        }
+        #left{
+            position: relative;
+            width:500px;
+            height:500px;
+            margin-top:50px;
+            margin-left:100px;
+            background: url(../img/2.jpg) 0 0 /100% 100%;
+            border:1px solid #000;
+        }
+        #cut{
+            position: relative;
+            top:0;
+            left:0;
+            width:100px;
+            height:100px;
+            border:2px solid #fff;
+        }
+        #cut div{
+            position: absolute;
+            width:8px;
+            height:8px;
+            border-radius: 50%;
+            background-color:red;
+        }
+        #t{
+            top:-6px;
+            left:calc(50% - 4px);
+        }
+        #b{
+            bottom:-6px;
+            left:calc(50% - 4px);
+        }
+        #l{
+            top:calc(50% - 4px);
+            left:-6px;
+        }
+        #r{
+            top:calc(50% - 4px);
+            right:-6px;
+        }
+        #lt{
+            top:-6px;
+            left:-6px;
+        }
+        #lb{
+            bottom:-6px;
+            left:-6px;
+        }
+        #rt{
+            top:-6px;
+            right:-6px;
+        }
+        #rb{
+            bottom:-6px ;
+            right:-6px;
+        }
+        #right{
+            margin-bottom:400px;
+            margin-left:50px;
+            margin-top: 50px;
+            width:100px;
+            height:100px;
+            border: 1px solid #000;
+            background-image: url(../img/2.jpg);
+            background-position: 0 0;
+            background-size: 500px 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="left">
+        <div id="cut">
+            <div id="t"></div>
+            <div id="b"></div>
+            <div id="l"></div>
+            <div id="r"></div>
+            <div id="lt"></div>
+            <div id="lb"></div>
+            <div id="rt"></div>
+            <div id="rb"></div>
+        </div>
+    </div>
+    <div id="right"></div>
+</body>
+<script>
+    let left = document.getElementById("left");
+    let right = document.getElementById("right");
+    let t = document.getElementById("t");
+    let b = document.getElementById("b");
+    let l = document.getElementById("l");
+    let r = document.getElementById("r");
+    let lt = document.getElementById("lt");
+    let lb = document.getElementById("lb");
+    let rt = document.getElementById("rt");
+    let rb = document.getElementById("rb");
+    cut.onmousedown = function(e){
+        e = e || window.event;  //兼容
+        const downX = e.clientX;
+        const downY = e.clientY;
+        const eleY = cut.offsetTop;
+        const eleX = cut.offsetLeft;
+        const eleW = cut.offsetWidth;
+        const eleH = cut.offsetHeight;
+        const W = 500 - eleW;
+        const H = 500 - eleH;
+        document.onmousemove = function(e){ 
+            e = e || window.event;
+            const moveX = e.clientX;
+            const moveY = e.clientY;
+            const changeX = moveX - downX;
+            const changeY = moveY - downY;
+            const endX = eleX + changeX;
+            const endY = eleY + changeY;
+            if((endX<0 && endY<0) || (endX<0 && endY>H) || (endX>W && endY<0) || (endX>W && endY>H)){
+            }else if(endX<0){
+                cut.style.top = endY +"px";
+                right.style.backgroundPosition = `0 ${-endY}px`;
+            }else if(endX>W){
+                cut.style.top = endY +"px";
+                right.style.backgroundPosition = `${-W}px ${-endY}px`;
+            }else if(endY<0){
+                cut.style.left = endX + "px";
+                right.style.backgroundPosition = `${-endX}px 0`;
+            }else if(endY>H){
+                cut.style.left = endX + "px";
+                right.style.backgroundPosition = `${-endX}px ${-H}px`;
+            }else{
+                cut.style.top = endY +"px";
+                cut.style.left = endX + "px";
+                right.style.backgroundPosition = `${-endX}px ${-endY}px`;
+            }
+            
+        }
+    }
+    rb.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const downX = e.clientX;
+        const downY = e.clientY;
+        const eleW = cut.clientWidth;
+        const eleH = cut.clientHeight;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const moveX = e.clientX;
+            const moveY = e.clientY;
+            const changeW = moveX - downX;
+            const changeH = moveY - downY;
+            const endW = eleW + changeW;
+            const endH = eleH + changeH;
+         if((moveX>600 && moveY>550) || (endW<100 && endH<100) || (moveX>600 && endH<100) || (moveY>550 && endW<100)) {
+         }else if(moveY>550 || endH<100) {
+            cut.style.width = endW + "px";
+            right.style.width = endW + "px";
+         }else if(moveX>600 || endW<100){
+            cut.style.height = endH + "px";
+            right.style.height = endH + "px";
+         }else{
+            cut.style.width = endW + "px";
+            cut.style.height = endH + "px";
+            right.style.width = endW + "px";
+            right.style.height = endH + "px";
+         }   
+
+        }
+    }
+    lt.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const eleL = parseInt(cut.style.left);
+        const eleT = parseInt(cut.style.top);
+        const downX = e.clientX;
+        const downY = e.clientY;
+        const eleW = cut.clientWidth;
+        const eleH = cut.clientHeight;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const L = parseInt(cut.style.left);
+            const T = parseInt(cut.style.top);
+            const moveX = e.clientX;
+            const moveY = e.clientY;
+            const changeW = moveX - downX;
+            const changeH = moveY - downY;
+            const endW = eleW - changeW;
+            const endH = eleH - changeH;
+            const endT = eleT + changeH;
+            const endL = eleL + changeW;
+         if((moveX<100 && moveY<50) || (endW<100 && endH<100) || (moveX<100 && endH<100) || (moveY<50 && endW<100)){
+         }else if(moveY<50 || endH<100){
+            cut.style.width = endW + "px";
+            right.style.width = endW + "px";
+            cut.style.left = endL + "px";
+            right.style.backgroundPosition = `${-endL}px ${-T}px`;
+         }else if(moveX<100 || endW<100){
+            cut.style.height = endH + "px";
+            right.style.height = endH + "px";
+            cut.style.top = endT + "px";
+            right.style.backgroundPosition = `${-L}px ${-endT}px`;
+         }else{
+            cut.style.width = endW + "px";
+            cut.style.height = endH + "px";
+            right.style.width = endW + "px";
+            right.style.height = endH + "px";
+            cut.style.left = endL + "px";
+            cut.style.top = endT + "px";
+            right.style.backgroundPosition = `${-endL}px ${-endT}px`;
+         }   
+
+        }
+    }
+    lb.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const eleL = parseInt(cut.style.left);
+        const eleT = parseInt(cut.style.top);
+        const downX = e.clientX;
+        const downY = e.clientY;
+        const eleW = cut.clientWidth;
+        const eleH = cut.clientHeight;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const L = parseInt(cut.style.left);
+            const T = parseInt(cut.style.top);
+            const moveX = e.clientX;
+            const moveY = e.clientY;
+            const changeW = moveX - downX;
+            const changeH = moveY - downY;
+            const endW = eleW - changeW;
+            const endH = eleH + changeH;
+            const endT = eleT + changeH;
+            const endL = eleL + changeW;
+         if((moveX<100 && moveY>550) || (endW<100 && endH<100) || (moveX<100 && endH<100) || (moveY>550 && endW<100)){
+         }else if(moveY>550 || endH<100){
+            cut.style.width = endW + "px";
+            right.style.width = endW + "px";
+            cut.style.left = endL + "px";
+            right.style.backgroundPosition = `${-endL}px ${-T}px`;
+         }else if(moveX<100 || endW<100){
+            cut.style.height = endH + "px";
+            right.style.height = endH + "px";
+            right.style.backgroundPosition = `${-L}px ${-T}px`;
+         }else{
+            cut.style.width = endW + "px";
+            cut.style.height = endH + "px";
+            right.style.width = endW + "px";
+            right.style.height = endH + "px";
+            cut.style.left = endL + "px";
+            right.style.backgroundPosition = `${-endL}px ${-T}px`;
+         }   
+
+        }
+    }
+    rt.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const eleL = parseInt(cut.style.left);
+        const eleT = parseInt(cut.style.top);
+        const downX = e.clientX;
+        const downY = e.clientY;
+        const eleW = cut.clientWidth;
+        const eleH = cut.clientHeight;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const L = parseInt(cut.style.left);
+            const T = parseInt(cut.style.top);
+            const moveX = e.clientX;
+            const moveY = e.clientY;
+            const changeW = moveX - downX;
+            const changeH = moveY - downY;
+            const endW = eleW + changeW;
+            const endH = eleH - changeH;
+            const endT = eleT + changeH;
+            const endL = eleL + changeW;
+         if((moveX>600 && moveY<50) || (endW<100 && endH<100) || (moveX>600 && endH<100) || (moveY<50 && endW<100)){
+         }else if(moveY<50 || endH<100){
+            cut.style.width = endW + "px";
+            right.style.width = endW + "px";
+            right.style.backgroundPosition = `${-L}px ${-T}px`;
+         }else if(moveX>600 || endW<100){
+            cut.style.height = endH + "px";
+            right.style.height = endH + "px";
+            cut.style.top = endT + "px";
+            right.style.backgroundPosition = `${-L}px ${-endT}px`;
+         }else{
+            cut.style.width = endW + "px";
+            cut.style.height = endH + "px";
+            right.style.width = endW + "px";
+            right.style.height = endH + "px";
+            cut.style.top = endT + "px";
+            right.style.backgroundPosition = `${-L}px ${-endT}px`;
+         }   
+
+        }
+    }
+    b.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const downY = e.clientY;
+        const eleH = cut.clientHeight;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const moveY = e.clientY;
+            const changeH = moveY - downY;
+            const endH = eleH + changeH;
+         if(moveY>550 || endH<100){
+         }else{
+            cut.style.height = endH + "px";
+            right.style.height = endH + "px";
+         }   
+
+        }
+    }
+    r.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const downX = e.clientX;
+        const eleW = cut.clientWidth;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const moveX = e.clientX;
+            const changeW = moveX - downX;
+            const endW = eleW + changeW;
+         if(moveX>600 || endW<100){
+         }else{
+            cut.style.width = endW + "px";
+            right.style.width = endW + "px";
+         }   
+
+        }
+    }
+    l.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const eleL = parseInt(cut.style.left);
+        const eleT = parseInt(cut.style.top);
+        const downX = e.clientX;
+        const eleW = cut.clientWidth;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const moveX = e.clientX;
+            const changeW = moveX - downX;
+            const endW = eleW - changeW;
+            const endL = eleL + changeW;
+         if(moveX<100 || endW<100){
+         }else{
+            cut.style.width = endW + "px";
+            right.style.width = endW + "px";
+            cut.style.left = endL + "px";
+            right.style.backgroundPosition = `${-endL}px ${-eleT}px`;
+         }   
+
+        }
+    }
+    t.onmousedown = function(e){
+        e = e || window.event;
+        if(e.stopPropagation){
+            e.stopPropagation()
+        }else{
+            e.cancelBubble = true;
+        }
+        const eleL = parseInt(cut.style.left);
+        const eleT = parseInt(cut.style.top);
+        const downY = e.clientY;
+        const eleH = cut.clientHeight;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            const moveY = e.clientY;
+            const changeH = moveY - downY;
+            const endH = eleH - changeH;
+            const endT = eleT + changeH;
+         if(moveY<50 || endH<100){
+         }else{
+            cut.style.height = endH + "px";
+            right.style.height = endH + "px";
+            cut.style.top = endT + "px";
+            right.style.backgroundPosition = `${-eleL}px ${-endT}px`;
+         }   
+
+        }
+    }
+    
+    
+    document.onmouseup = function(){//用document注册鼠标松开事件是为了防止鼠标移得太快，盒子跟不上鼠标，鼠标离开了盒子就不能触发鼠标松开事件
+        document.onmousemove = null;
+    }
+    
+</script>
+</html>
