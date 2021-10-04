@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position:relative;
+            width:450px;
+            height:300px;
+            margin:100px auto;
+            overflow: hidden;
+            
+        }
+        #point{
+            margin-top:250px;
+            margin-left:110px;
+            position:relative;
+            width:200px;
+            height:10px;
+            border:10px solid #eee;
+            border-radius: 15px;
+            opacity: .5;
+            background-color: #eee;
+        }
+        .dot{
+            border-radius: 50%;
+            margin-top:-5px;
+            margin-left:16px;
+            width:20px;
+            height:20px;
+            float:left;
+            background-color:black;
+        }
+        #dot{
+            border-radius: 50%;
+            margin-top:-5px;
+            margin-left:16px;
+            width:20px;
+            height:20px;
+            position: absolute;
+            left:0px;
+            background-color: yellow;
+            opacity:1;
+        }
+        #p1{
+            position:absolute;
+            left:0;
+            top:50%;
+            width:35px;
+            height:20px;
+            opacity: .5;
+            background-color: #eee;
+            text-align:center;
+        }
+        #p2{
+            position:absolute;
+            right:0;
+            top:50%;
+            width:35px;
+            height:20px;
+            opacity: .5;
+            background-color: #eee;
+            text-align:center;
+        }
+        img{
+            width:450px;
+            height:300px;
+        }
+        ul{
+            position: absolute;
+            left:0px;
+            width:4500px;
+            height:300px;
+            list-style: none;
+        }
+        li{
+            position:relative;
+            float:left;
+        }
+        .on{
+            left:0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul id="run">
+            <li><img src="../img/l1.jpg" class="t"></img></li>
+            <li><img src="../img/l2.jpg"></img></li>
+            <li><img src="../img/l3.jpg"></img></li>
+            <li><img src="../img/l4.jpg"></img></li>
+            <li><img src="../img/l5.jpg"></img></li>
+            <li><img src="../img/l1.jpg"></img></li>
+        </ul>
+        <div id="point">
+            <div id="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <button id="p1">《-</button>
+        <button id="p2">-》</button>
+    </div>
+    <script>
+        let t = document.getElementsByClassName("t");
+        let p1 = document.getElementById("p1");
+        let p2 = document.getElementById("p2");
+        let title = document.getElementById("title");
+        let run = document.getElementById("run");
+        let dot = document.getElementById("dot");
+        let d = document.getElementsByClassName("dot");
+        let index = 0,j=-1;
+        let ind = 0;
+        let t4 = new Date();
+        function animation(ele,data={},time=500){
+            var startValue = {};
+            var changeValue = {};
+            var startTime = new Date();
+            var eleStart = getComputedStyle(ele);
+            for(var key in data){
+                var val = parseFloat(eleStart[key]);
+                startValue[key] = isNaN(val) ? 0 : val;
+                changeValue[key] = parseFloat(data[key]) - startValue[key];
+            }5
+            function run(){
+                var nowTime = new Date() - startTime;
+                var t1 = nowTime/time;
+                if(t1>=1){
+                    t1=1;
+                }else{
+                    requestAnimationFrame(run);
+                }
+                for(var key in changeValue){
+                    var val = t1*changeValue[key]+startValue[key];
+                    ele.style[key]=val + "px";
+                }
+            }
+            run();
+        }
+        let fn = function(){
+            run.style.left=0;
+            dot.style.left=0;
+        }
+        p2.onclick = function(){
+            let t3 = new Date();
+            if(t3-t4<1200) {//防止动画未结束或最后一张图跳到第一张未结束时就进行了切换
+                return
+            }else{
+                index++
+            }
+            t4=t3;
+            animation(run,{left:-450*index},1000);
+            
+            if(index==5){
+                    setTimeout(fn,1100);
+                    index%=5;
+            }else{
+                animation(dot,{left:36*index},1000);
+            }
+            j=index;
+
+            
+        }
+        let fu = function(){
+            run.style.left=-2250+"px";
+            dot.style.left=144+"px";
+        }
+        p1.onclick = function(){
+            let t3 = new Date();
+            if(t3-t4<1200) {
+                return
+            }else{
+                index--
+            }
+            t4=t3;
+            if(index==-1){
+                fu();
+                index=4;
+            }else{
+                animation(dot,{left:36*index},1000);
+                
+            }
+            animation(run,{left:-450*index},1000);
+            j=index;
+        }
+        for(let i=0;i<d.length;i++){
+            d[i].onclick = function(){
+                let t3 = new Date();
+                if(t3-t4<1000) {
+                return
+            }
+                ind = i;
+                if(ind-index==1 || ind-index==-1){
+                    animation(dot,{left:36*ind},1000);
+                }else{
+                    dot.style.left=ind*36+"px";
+                }
+                animation(run,{left:-450*ind},1000);
+                index = i;
+                j = index;
+                t4=t3;
+            }
+        }
+        let fun = function(){
+            j++;
+            index=j;
+            if(j==0){
+                dot.style.left=0;
+            }else{
+                animation(dot,{left:36*j},1000);
+            }
+            animation(run,{left:-450*j},1000);
+            if(j==4){
+                    j=-1;
+            }
+        }
+        let k = setInterval(fun,2000);
+        box.onmouseover = function(){
+            clearTimeout(k);
+        }
+        box.onmouseleave = function(){
+            clearTimeout(k);
+            k = setInterval(fun,2000);
+        }
+    </script>
+</body>
+</html>
