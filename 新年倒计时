@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            height:100px;
+            width:755px;
+            font-size: 50px;
+            font-weight: bold;
+            margin:200px auto;
+        }
+        span{
+            font-size:50px;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div>距过年还有:<span  id="text"></span></div>
+</body>
+<script>
+    let d,h,m,s;
+    var now = new Date();
+    let span = document.getElementById("text");
+    let zero = function(x){
+        if(x<10){
+            return("0"+x)
+        }else{
+            return(x)
+        }
+    }
+    let fn = function(){
+        let year = new Date("2022-2-1");
+        let change = year-now;
+        d = Math.floor(change/1000/60/60/24)
+        h = Math.floor(change/1000/60/60)%24
+        m = Math.floor(change/1000/60)%60
+        s = Math.floor(change/1000)%60
+        span.innerHTML = `${d}天${zero(h)}时${zero(m)}分${zero(s)}秒`;
+        now = new Date();
+    }
+    fn();
+    setInterval(fn,1000)
+</script>
+</html>
