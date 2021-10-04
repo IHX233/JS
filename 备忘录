@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:300px;
+            margin-top:20px;
+            margin-left:10px;
+        }
+        #title{
+            font-size:25px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        input{
+            width:300px;
+        }
+        ul{
+            margin-top:15px;
+        }
+        li{
+            margin-top: 3px;
+            margin-left:30px;
+            font-size: 18px;
+            border-bottom: 2px solid rgb(139, 139, 139);
+            cursor: pointer;
+        }
+        span{
+            float:right;
+            background-color: rgb(139, 139, 139);
+            color:red;
+            cursor: pointer;
+        }
+        .done{
+            color: rgb(211, 208, 208);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="title">待办事项</div>
+        <input type="text" placeholder="输入事件，回车确定" id="ipt"></input>
+        <ul id="list"></ul>
+    </div>
+</body>
+<script>
+    let input = document.getElementById("input");
+    let list = document.getElementById("list");
+    let remove = document.getElementsByClassName("remove");
+    let data = localStorage.getItem("todo");
+    let ipt = document.getElementById("ipt");
+    //判断本地存储是否存在
+    if(data === null){
+        localStorage.setItem("todo","[]");
+    }else{
+        JSON.parse(data).forEach((v,i,self)=>{
+            list.innerHTML += `<li class=${v.done ? "done" : ""}>${v.content}<span>×</span></li>`
+        })
+    }
+    //进入输入框
+    ipt.onkeyup = function(e){
+        if(e.keyCode !== 13)return
+        let content = this.value.trim();
+        if(!content)return
+        let data = JSON.parse(localStorage.getItem("todo"));
+        list.innerHTML += `<li>${content}<span>×</span></li>`
+        data.push({
+            content:content,
+            done:false
+        })
+        localStorage.setItem("todo",JSON.stringify(data))
+        this.value = "";
+    }
+    //事项完成，取消完成以及删除
+    list.addEventListener("click", e => {
+        const that = e.target;
+        const data = JSON.parse(localStorage.getItem("todo"));
+        e.stopPropagation();
+        const tagName = that.tagName.toLowerCase();
+        switch(tagName){
+            case "span":
+                data.forEach(function(v,i,self){
+                    if(this === list.children[i]){
+                        list.removeChild(this);
+                        self.splice(i,1);
+                    }
+                },that.parentNode/*使this指向其父元素*/)
+                break;
+            case "li":
+                data.forEach(function(v,i,self){
+                    if(that === list.children[i]){
+                        v.done = !v.done;
+                        if(v.done){
+                            that.classList.add("done");
+                        }else{
+                            that.classList.remove("done");
+                        }
+                    }
+                })
+                break;
+        }
+        localStorage.setItem('todo',JSON.stringify(data))
+    })
+</script>
+</html>
